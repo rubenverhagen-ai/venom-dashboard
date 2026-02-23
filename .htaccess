@@ -1,0 +1,12 @@
+DirectoryIndex index.php index.html
+Options -Indexes
+
+# Block direct access to raw HTML (force through PHP gate)
+<Files "index.html">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Security headers
+Header always set X-Frame-Options DENY
+Header always set X-Content-Type-Options nosniff

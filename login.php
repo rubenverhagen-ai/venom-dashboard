@@ -1,0 +1,378 @@
+<?php
+session_start();
+$PASSWORD = 'pepernood';
+$authenticated = isset($_SESSION['void_auth']) && $_SESSION['void_auth'] === true;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = isset($_POST['password']) ? trim($_POST['password']) : '';
+    if ($input === $PASSWORD) {
+        $_SESSION['void_auth'] = true;
+        header('Location: /');
+        exit;
+    } else {
+        $error = true;
+        sleep(1);
+    }
+}
+if ($authenticated) { header('Location: /'); exit; }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GEKKO // SECURE ACCESS</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ───────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#00ff41;--gd:#00bb30;--gdk:#004d15;
+  --r:#ff0033;--bg:#000;
+  --card-bg:rgba(0,8,2,.92);
+  --card-border:rgba(0,255,65,.2);
+  --card-border-t:rgba(0,255,65,.7);
+}
+html{height:100%;-webkit-font-smoothing:antialiased}
+body{
+  background:var(--bg);color:var(--g);
+  font-family:'Share Tech Mono',monospace;
+  min-height:100vh;overflow-x:hidden;
+  display:flex;flex-direction:column;
+}
+
+/* ── CANVAS LAYERS ──────────────────────────────── */
+#mc{position:fixed;inset:0;z-index:0;opacity:.8}
+.scanlines{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px)
+}
+.vignette{
+  position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.8) 100%)
+}
+
+/* ── BARS ───────────────────────────────────────── */
+.topbar,.botbar{
+  position:fixed;left:0;right:0;z-index:20;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:6px clamp(12px,3vw,24px);
+  font-size:clamp(8px,1.1vw,11px);letter-spacing:.15em;
+  color:rgba(0,255,65,.4);
+  border-color:rgba(0,255,65,.1);
+  background:rgba(0,0,0,.85);
+  white-space:nowrap;overflow:hidden;gap:8px;
+}
+.topbar{top:0;border-bottom:1px solid}
+.botbar{bottom:0;border-top:1px solid}
+.topbar span:nth-child(2){color:rgba(0,255,65,.6);font-size:clamp(9px,1.2vw,12px)}
+@media(max-width:480px){.topbar span:first-child,.botbar span:last-child{display:none}}
+
+/* ── MAIN LAYOUT ────────────────────────────────── */
+.page{
+  position:relative;z-index:10;
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:clamp(52px,8vh,80px) clamp(16px,4vw,32px);
+  gap:clamp(8px,2vh,16px);
+}
+
+/* ── 3D LOGO ────────────────────────────────────── */
+.logo-scene{width:100%;max-width:560px;display:flex;justify-content:center}
+#logo3d{width:100%;max-width:560px;height:220px;display:block}
+
+/* ── LOGIN CARD ─────────────────────────────────── */
+.card{
+  width:100%;max-width:420px;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-top:2px solid var(--card-border-t);
+  padding:clamp(20px,3vh,32px) clamp(20px,4vw,36px);
+  position:relative;
+  box-shadow:0 0 60px rgba(0,255,65,.04),inset 0 0 40px rgba(0,255,65,.01);
+}
+/* corner accents */
+.card::before,.card::after{
+  content:'';position:absolute;
+  width:10px;height:10px;
+}
+.card::before{bottom:0;left:0;border-bottom:2px solid var(--g);border-left:2px solid var(--g)}
+.card::after{bottom:0;right:0;border-bottom:2px solid var(--g);border-right:2px solid var(--g)}
+
+.card-head{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.2vw,11px);
+  font-weight:700;letter-spacing:.3em;
+  text-align:center;margin-bottom:clamp(14px,2.5vh,20px);
+}
+.alert{
+  border-left:3px solid var(--r);
+  background:rgba(255,0,51,.04);
+  padding:8px 12px;margin-bottom:clamp(12px,2vh,18px);
+  font-size:clamp(9px,1.1vw,10px);letter-spacing:.08em;
+  color:var(--r);line-height:1.7;
+}
+.alert small{color:rgba(255,0,51,.45);display:block;margin-top:4px}
+.tlog{margin-bottom:clamp(12px,2vh,18px)}
+.tl{
+  font-size:clamp(9px,1.1vw,10px);line-height:1.9;
+  color:rgba(0,255,65,.38);overflow:hidden;white-space:nowrap;
+}
+.tl .ok{color:var(--g)}.tl .wa{color:#fa0}
+.tl.t1{animation:tw .5s steps(40) .5s both;width:0}
+.tl.t2{animation:tw .5s steps(40) 1.1s both;width:0}
+.tl.t3{animation:tw .5s steps(40) 1.7s both;width:0}
+.tl.t4{animation:tw .5s steps(40) 2.3s both;width:0}
+@keyframes tw{to{width:100%}}
+.field-label{
+  font-size:clamp(8px,1vw,10px);letter-spacing:.25em;
+  color:var(--gd);margin-bottom:7px;
+}
+.field-label::before{content:'▶ '}
+.input-wrap{
+  display:flex;align-items:center;
+  border:1px solid rgba(0,255,65,.22);
+  background:rgba(0,12,3,.7);
+  margin-bottom:clamp(12px,2vh,16px);
+  transition:border-color .2s;
+}
+.input-wrap:focus-within{
+  border-color:var(--g);
+  box-shadow:0 0 18px rgba(0,255,65,.12);
+}
+.ipfx{padding:0 12px;color:var(--g);font-size:14px;user-select:none;flex-shrink:0}
+.input-wrap input{
+  flex:1;min-width:0;background:transparent;border:none;outline:none;
+  color:var(--g);font-family:'Share Tech Mono',monospace;
+  font-size:clamp(13px,1.8vw,16px);
+  padding:clamp(10px,1.6vh,13px) 12px clamp(10px,1.6vh,13px) 0;
+  letter-spacing:.25em;
+}
+.input-wrap input::placeholder{color:rgba(0,255,65,.13);letter-spacing:.1em;font-size:11px}
+.errmsg{
+  font-size:10px;color:var(--r);letter-spacing:.12em;
+  margin-bottom:14px;padding:8px 12px;
+  border-left:2px solid var(--r);background:rgba(255,0,51,.04);
+  animation:efl .3s ease;
+}
+@keyframes efl{0%,100%{opacity:1}50%{opacity:.3}}
+.submit{
+  width:100%;padding:clamp(11px,1.8vh,14px);
+  background:transparent;border:1px solid var(--g);
+  color:var(--g);font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.2vw,11px);font-weight:700;
+  letter-spacing:.4em;text-transform:uppercase;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:letter-spacing .3s,box-shadow .3s;
+}
+.submit:hover{
+  letter-spacing:.55em;
+  box-shadow:0 0 28px rgba(0,255,65,.22);
+  background:rgba(0,255,65,.04);
+}
+.submit::before{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,255,65,.07),transparent);
+  animation:scan 2.8s linear infinite;
+}
+@keyframes scan{0%{left:-100%}100%{left:100%}}
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-top:clamp(14px,2.2vh,18px);
+  padding-top:14px;border-top:1px solid rgba(0,255,65,.07);
+}
+.stat-item{text-align:center}
+.stat-label{font-size:clamp(7px,.9vw,8px);letter-spacing:.12em;color:rgba(0,255,65,.28)}
+.stat-val{font-size:clamp(10px,1.3vw,12px);color:rgba(0,255,65,.7);margin-top:3px}
+</style>
+</head>
+<body>
+<canvas id="mc"></canvas>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<div class="topbar">
+  <span>GEKKO SYSTEMS // SECURE PERIMETER</span>
+  <span id="clk">--:--:-- UTC</span>
+  <span>VOID-01 // TLS 1.3</span>
+</div>
+
+<main class="page">
+
+  <!-- 3D Logo canvas -->
+  <div class="logo-scene">
+    <canvas id="logo3d"></canvas>
+  </div>
+
+  <div class="agency-sub">A &nbsp; G &nbsp; E &nbsp; N &nbsp; C &nbsp; Y</div>
+
+  <div class="card">
+    <div class="card-head">⬡ &nbsp; AUTHORIZATION REQUIRED &nbsp; ⬡</div>
+    <div class="alert">
+      ⚠ CLASSIFIED SYSTEM — UNAUTHORIZED ACCESS PROHIBITED
+      <small>Session logged · IP: <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0'); ?> · <?php echo gmdate('Y-m-d H:i:s'); ?> UTC</small>
+    </div>
+    <div class="tlog">
+      <div class="tl t1">&gt; INITIALIZING SECURE CHANNEL... <span class="ok">[OK]</span></div>
+      <div class="tl t2">&gt; ENCRYPTION LAYER ACTIVE... <span class="ok">[AES-256]</span></div>
+      <div class="tl t3">&gt; BIOMETRICS BYPASSED... <span class="wa">[MANUAL AUTH]</span></div>
+      <div class="tl t4">&gt; AWAITING CREDENTIALS_</div>
+    </div>
+    <?php if(!empty($error)):?>
+    <div class="errmsg">⛔ ACCESS DENIED — INVALID AUTHORIZATION CODE</div>
+    <?php endif;?>
+    <form method="POST" autocomplete="off">
+      <div class="field-label">Security Token</div>
+      <div class="input-wrap">
+        <span class="ipfx">⬡</span>
+        <input type="password" name="password" placeholder="enter access code" autofocus autocomplete="new-password">
+      </div>
+      <button type="submit" class="submit">▶ &nbsp; AUTHENTICATE</button>
+    </form>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-label">THREAT</div><div class="stat-val">AMBER</div></div>
+      <div class="stat-item"><div class="stat-label">NODES</div><div class="stat-val" id="nc">--</div></div>
+      <div class="stat-item"><div class="stat-label">SESSION</div><div class="stat-val">ENC</div></div>
+      <div class="stat-item"><div class="stat-label">ATTEMPTS</div><div class="stat-val"><?php echo isset($error)?'1':'0';?>/5</div></div>
+    </div>
+  </div>
+
+</main>
+
+<div class="botbar">
+  <span>GEKKO AGENCY © 2026</span>
+  <span>VOID.GEKKOAGENCY.COM // INTERNAL USE ONLY</span>
+</div>
+
+<script>
+// Clock
+(function tick(){
+  var n=new Date();
+  document.getElementById('clk').textContent=
+    n.getUTCHours().toString().padStart(2,'0')+':'+
+    n.getUTCMinutes().toString().padStart(2,'0')+':'+
+    n.getUTCSeconds().toString().padStart(2,'0')+' UTC';
+  setTimeout(tick,1000);
+})();
+document.getElementById('nc').textContent=Math.floor(Math.random()*40+80);
+
+// Matrix rain
+(function(){
+  var cv=document.getElementById('mc'),cx=cv.getContext('2d');
+  function rs(){cv.width=innerWidth;cv.height=innerHeight;}
+  rs(); window.addEventListener('resize',rs);
+  var ch='アイウエカキGEKKOVENOM01$#@><{}|'.split(''),cols,drops;
+  function init(){cols=Math.floor(cv.width/16);drops=Array.from({length:cols},()=>Math.random()*-50);}
+  init(); window.addEventListener('resize',init);
+  setInterval(function(){
+    cx.fillStyle='rgba(0,0,0,.055)';cx.fillRect(0,0,cv.width,cv.height);
+    cx.font='13px Share Tech Mono,monospace';
+    for(var i=0;i<drops.length;i++){
+      var c=ch[Math.floor(Math.random()*ch.length)];
+      cx.fillStyle=Math.random()>.97?'#ccffdd':'rgba(0,255,65,'+(Math.random()*.65+.15)+')';
+      cx.fillText(c,i*16,drops[i]*16);
+      if(drops[i]*16>cv.height&&Math.random()>.975)drops[i]=0;
+      drops[i]++;
+    }
+  },42);
+})();
+</script>
+
+<!-- THREE.JS r128 + SVGLoader -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/SVGLoader.js"></script>
+<script>
+(function(){
+  try {
+  if(typeof THREE === 'undefined'){ throw new Error('THREE not loaded'); }
+  if(typeof THREE.SVGLoader === 'undefined'){ throw new Error('SVGLoader not loaded'); }
+  var c = document.getElementById('logo3d');
+  var W = c.offsetWidth || 560;
+  var H = 220;
+  c.width = W; c.height = H;
+
+  var rr = new THREE.WebGLRenderer({canvas:c, antialias:true, alpha:true});
+  rr.setSize(W, H, false);
+  rr.setPixelRatio(Math.min(devicePixelRatio, 2));
+  rr.setClearColor(0, 0);
+
+  var scene = new THREE.Scene();
+  var cam = new THREE.PerspectiveCamera(36, W/H, 0.1, 200);
+  cam.position.z = 8;
+
+  scene.add(new THREE.AmbientLight(0x004400, 2));
+  var kl = new THREE.DirectionalLight(0xffffff, 6); kl.position.set(5,8,6); scene.add(kl);
+  var rl = new THREE.DirectionalLight(0x00ff55, 5); rl.position.set(-6,0,-5); scene.add(rl);
+  var fl = new THREE.DirectionalLight(0x00cc44, 3); fl.position.set(0,-5,4); scene.add(fl);
+  var sp = new THREE.PointLight(0x99ffbb, 12, 30); scene.add(sp);
+
+  var mat = new THREE.MeshStandardMaterial({
+    color:0x00dd40, emissive:0x002a10, emissiveIntensity:.5,
+    metalness:.95, roughness:.07, side:THREE.DoubleSide
+  });
+
+  var svgStr = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1190.55 841.89">
+  
+  <path fill="#00ff41" d="M294.4,684.66c34.77,0,57.77-25.8,77.96-51.6l11.78-15.14c1.12-6.17,1.68-15.71,1.68-28.61v-70.67l-31.97,40.38c-21.88-11.21-32.53-28.61-32.53-52.16,0-6.17-1.12-24.12-1.12-57.77v-111.05c26.36-10.65,49.35-25.8,70.11-50.48.56-.56,3.36-.56,8.41-.56,16.83,0,25.8,8.98,26.92,27.48,2.24,15.7,3.92,56.08,2.24,123.95-2.24,97.03-2.24,139.09-2.24,127.31,0,2.8-.56,7.86-1.12,16.27-1.68,17.38,5.61,26.36,19.62,26.36-3.36,1.68-22.99,19.06-58.88,52.72-25.8,24.12-52.72,35.89-80.2,35.89-20.76,0-35.89-6.17-46.56-19.07,12.91,4.49,24.68,6.74,35.89,6.74ZM360.02,375.63l.56,103.2c0,7.85,7.85,22.44,16.27,22.44,3.36,0,6.17-1.12,8.97-2.81l1.12-133.48c0-28.04-4.49-42.06-13.47-42.06-8.41,0-12.9,6.17-12.9,17.94-.56,2.8-1.12,14.02-.56,34.77Z"/>
+  <path fill="#00ff41" d="M442.46,345.34l80.76-58.33c4.49,1.68,7.3,5.05,8.98,9.54,2.24,6.73,5.05,21.87,5.61,45.99,0,5.61,2.24,11.77,7.29,17.95l-2.8,1.68-10.09,8.41c-23,19.06-40.39,43.18-52.16,71.79v31.97c0,29.17,7.29,41.5,21.88,37.58,8.41-2.24,15.7-8.41,22.99-19.63l5.62-12.34c6.73-14.58,3.92-35.33-4.49-60.01l16.27,26.92v.56c3.92,11.77,4.49,24.12,1.68,37.58-5.05,25.24-18.51,49.35-42.06,72.91l-4.49,4.49-11.78-5.61c-21.87-10.09-37.02-22.44-41.5-42.06-.56-6.17-1.68-16.83-1.68-34.77v-131.8c-.56-1.12-.56-2.24,0-2.8ZM480.03,418.82c7.29-7.29,14.58-19.62,21.88-37.58,0-20.19-1.68-34.21-4.49-42.06-2.81-3.92-5.62-5.61-8.98-5.61-2.8-1.12-4.49-1.12-6.17,0-1.68,0-2.24.56-2.24,1.12v84.12Z"/>
+  <path fill="#00ff41" d="M553.49,345.91v-60.57l-.56-61.13c1.68-1.68,11.21-17.95,28.61-47.67,11.77-21.87,27.48-32.53,47.67-32.53,3.92,0,9.53,1.12,16.83,2.8-26.36,7.29-42.63,21.32-50.48,42.07-2.8,7.29-3.36,18.51-3.36,32.53,0,10.65-.56,42.06,1.12,95.9l42.06-31.4c9.54,5.61,14.59,24.68,15.15,56.65,0,7.85,2.24,14.03,6.17,17.95l-.56,1.12c-11.77,8.41-24.68,19.62-35.89,33.65l44.87,123.94c28.61,80.76,63.94,130.12,102.08,152.55,10.65,6.17,25.8,11.22,50.47,19.63-3.92,1.68-7.29,1.68-10.09,2.24-31.41,2.24-63.94-12.34-99.83-50.48-28.6-31.4-49.35-62.81-66.17-97.02-10.66-21.88-25.8-54.41-48.24-101.52v13.46c-1.68,6.74-1.12,11.22-1.12,13.47v28.04c0,14.03,6.73,20.76,20.76,19.07h2.8q.56,0,.56.56l-31.41,39.82c-15.71-8.41-25.8-20.75-30.29-35.89-1.12-6.73-1.68-17.94-1.68-34.21v-20.75c0-24.12.56-34.77.56-32.53v-87.5c-1.12,0-1.68-.56-1.68-1.12l1.68-1.12ZM593.31,417.13c8.41-8.97,14.03-20.75,20.19-35.89,1.12-31.41-3.36-47.67-13.47-48.79-2.8,0-4.49.56-6.17,1.12h-.56v83.56Z"/>
+  <path fill="#00ff41" d="M667.34,345.91v-60.57l-.56-61.13c1.68-1.68,11.21-17.95,28.61-47.67,11.77-21.87,27.48-32.53,47.67-32.53,3.92,0,9.53,1.12,16.83,2.8-26.36,7.29-42.63,21.32-50.48,42.07-2.8,7.29-3.36,18.51-3.36,32.53,0,10.65-.56,42.06,1.12,95.9l42.06-31.4c9.54,5.61,14.59,24.68,15.15,56.65,0,7.85,2.24,14.03,6.17,17.95l-.56,1.12c-11.77,8.41-24.68,19.62-35.89,33.65l44.87,123.94c28.61,80.76,63.94,130.12,102.08,152.55,10.65,6.17,25.8,11.22,50.47,19.63-3.92,1.68-7.29,1.68-10.09,2.24-31.41,2.24-63.94-12.34-99.83-50.48-28.6-31.4-49.35-62.81-66.17-97.02-10.66-21.88-25.8-54.41-48.24-101.52v13.46c-1.68,6.74-1.12,11.22-1.12,13.47v28.04c0,14.03,6.73,20.76,20.76,19.07h2.8q.56,0,.56.56l-31.41,39.82c-15.71-8.41-25.8-20.75-30.29-35.89-1.12-6.73-1.68-17.94-1.68-34.21v-20.75c0-24.12.56-34.77.56-32.53v-87.5c-1.12,0-1.68-.56-1.68-1.12l1.68-1.12ZM707.16,417.13c8.41-8.97,14.03-20.75,20.19-35.89,1.12-31.41-3.36-47.67-13.47-48.79-2.8,0-4.49.56-6.17,1.12h-.56v83.56Z"/>
+  <path fill="#00ff41" d="M849.6,287.58c.56-.56,3.36-.56,7.29-.56,15.15,0,25.8,8.98,27.48,26.92,1.12,12.9,1.68,25.8,1.68,38.69l-2.24,152.56c.56,6.17,2.8,11.77,6.73,15.7-5.05,3.36-5.05,7.29-77.96,45.99-21.32-10.09-31.97-27.47-31.97-52.16l-1.12-154.23v-22.44c26.36-10.65,49.35-25.8,70.11-50.48ZM819.88,502.39c0,20.75,6.17,36.46,17.95,36.46,4.49,0,7.85,0,15.14-6.74-7.29-9.53-9.53-14.58-9.53-32.53,0-58.32,1.68-53.84,1.68-134.6,0-28.04-4.49-42.06-12.91-42.06-4.49,0-13.46,4.49-13.46,17.94l1.12,161.53Z"/>
+</svg>`;
+
+  var loader = new THREE.SVGLoader();
+  var data = loader.parse(svgStr);
+  var group = new THREE.Group();
+
+  data.paths.forEach(function(path){
+    var shapes = THREE.SVGLoader.createShapes(path);
+    shapes.forEach(function(shape){
+      var geo = new THREE.ExtrudeGeometry(shape, {
+        depth: 20,
+        bevelEnabled: true,
+        bevelThickness: 3,
+        bevelSize: 2,
+        bevelSegments: 2,   // reduced — prevents vertex overflow
+        curveSegments: 4    // reduced — prevents vertex overflow
+      });
+      group.add(new THREE.Mesh(geo, mat));
+    });
+  });
+
+  // Center + scale (position must be in world units = center * scale)
+  var box = new THREE.Box3().setFromObject(group);
+  var ctr = box.getCenter(new THREE.Vector3());
+  var sz  = box.getSize(new THREE.Vector3());
+  var s = 5.0 / Math.max(sz.x, sz.y);
+  group.scale.set(s, -s, s);
+  group.position.set(-ctr.x * s, ctr.y * s, -ctr.z * s);
+  scene.add(group);
+
+  var gt=0, ga=false;
+  (function loop(){
+    requestAnimationFrame(loop);
+    var t = Date.now()*.001;
+    group.rotation.y += .016;
+    group.rotation.x = Math.sin(t*.3)*.07;
+    sp.position.set(Math.sin(t*1.2)*6, Math.cos(t*.6)*2.5, Math.sin(t*.9)*5+5);
+    gt++;
+    if(gt>200 && Math.random()>.97){ga=true;gt=0;}
+    if(ga){mat.emissiveIntensity=Math.random()>.5?2:.1;mat.color.setHex(Math.random()>.5?0x00ffcc:0x00dd40);if(Math.random()>.6)ga=false;}
+    else{mat.emissiveIntensity=.5;mat.color.setHex(0x00dd40);}
+    rr.render(scene,cam);
+  })();
+  } catch(e) {
+    var c=document.getElementById('logo3d');
+    var ctx=c.getContext('2d');
+    c.width=560;c.height=80;
+    ctx.fillStyle='#00ff41';
+    ctx.font='14px monospace';
+    ctx.fillText('3D ERR: '+e.message,10,40);
+  }
+})();
+</script>
+</body>
+</html>
