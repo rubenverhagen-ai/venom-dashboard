@@ -26,6 +26,9 @@ jobs:
 
       - name: Fetch live data
         run: python3 scripts/fetch-data.py
+        env:
+          BITVAVO_API_KEY:    ${{ secrets.BITVAVO_API_KEY }}
+          BITVAVO_API_SECRET: ${{ secrets.BITVAVO_API_SECRET }}
 
       - name: Commit if changed
         run: |
