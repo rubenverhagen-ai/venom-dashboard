@@ -326,6 +326,110 @@
   .project-card:nth-child(4) { animation-delay: 0.55s; }
   .project-card:nth-child(5) { animation-delay: 0.7s; }
 
+  /* ── PORTFOLIO WIDGET ───────────────────────────── */
+  .portfolio-section {
+    margin: 0 0 24px 0;
+    border: 1px solid rgba(0,255,65,0.2);
+    border-radius: 6px;
+    background: rgba(0,15,2,0.6);
+    padding: 16px 20px;
+  }
+  .portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .portfolio-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--venom-green);
+    letter-spacing: 0.12em;
+  }
+  .portfolio-updated {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .portfolio-summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    padding: 10px 0;
+  }
+  .ps-stat { flex: 1; text-align: center; }
+  .ps-val {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--venom-green);
+    letter-spacing: 0.05em;
+  }
+  .ps-val.up   { color: #00ff41; }
+  .ps-val.down { color: #ff4444; }
+  .ps-key {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+  .ps-divider {
+    width: 1px; height: 36px;
+    background: rgba(0,255,65,0.15);
+  }
+  .ticker-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ticker-chip {
+    flex: 1;
+    min-width: 130px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,255,65,0.15);
+    border-radius: 4px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+  }
+  .ticker-chip:hover { border-color: rgba(0,255,65,0.4); }
+  .tc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .tc-sym {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--venom-green);
+    letter-spacing: 0.1em;
+  }
+  .tc-chg {
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .tc-chg.up   { color: #00ff41; background: rgba(0,255,65,0.12); }
+  .tc-chg.down { color: #ff4444; background: rgba(255,68,68,0.12); }
+  .tc-price {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .tc-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .tc-pnl { font-size: 0.7rem; font-weight: bold; }
+  .tc-pnl.up   { color: #00ff41; }
+  .tc-pnl.down { color: #ff4444; }
+
   @keyframes cardEnter {
     to {
       opacity: 1;
@@ -702,6 +806,43 @@
     </div>
   </div>
 
+  <!-- ── LIVE PORTFOLIO ──────────────────────────────── -->
+  <section class="portfolio-section" id="portfolio-section">
+    <div class="portfolio-header">
+      <span class="portfolio-label">◈ PORTFOLIO — LIVE</span>
+      <span class="portfolio-updated" id="portfolio-updated">LOADING...</span>
+    </div>
+    <div class="portfolio-summary" id="portfolio-summary">
+      <div class="ps-stat">
+        <div class="ps-val" id="ps-value">—</div>
+        <div class="ps-key">WAARDE</div>
+      </div>
+      <div class="ps-divider"></div>
+      <div class="ps-stat">
+        <div class="ps-val" id="ps-invested">—</div>
+        <div class="ps-key">INGELEGD</div>
+      </div>
+      <div class="ps-divider"></div>
+      <div class="ps-stat">
+        <div class="ps-val" id="ps-pnl">—</div>
+        <div class="ps-key">P&L</div>
+      </div>
+      <div class="ps-divider"></div>
+      <div class="ps-stat">
+        <div class="ps-val" id="ps-pnl-pct">—</div>
+        <div class="ps-key">RENDEMENT</div>
+      </div>
+      <div class="ps-divider"></div>
+      <div class="ps-stat">
+        <div class="ps-val" id="ps-fx">—</div>
+        <div class="ps-key">EUR/USD</div>
+      </div>
+    </div>
+    <div class="ticker-row" id="ticker-row">
+      <!-- tickers injected by JS -->
+    </div>
+  </section>
+
   <!-- Project Cards -->
   <div class="projects-grid">
 
@@ -967,6 +1108,66 @@
   /* ═══════════════════════════════════════════════════
      ANIMATED PROGRESS BARS
      ═══════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════
+     LIVE PORTFOLIO WIDGET
+     ═══════════════════════════════════════════════════ */
+  (function initPortfolio() {
+    function fmt(n, dec=2) { return n.toFixed(dec); }
+    function eur(n)  { return '€' + fmt(Math.abs(n)); }
+    function sign(n) { return n >= 0 ? '+' : '−'; }
+
+    async function load() {
+      try {
+        const r = await fetch('/live-data.json?t=' + Date.now());
+        if (!r.ok) throw new Error('no data');
+        const d = await r.json();
+        const p = d.portfolio;
+
+        // Updated timestamp
+        const ts = new Date(d.updated);
+        document.getElementById('portfolio-updated').textContent =
+          'BIJGEWERKT ' + ts.toLocaleTimeString('nl-NL', {hour:'2-digit',minute:'2-digit'}) + ' UTC';
+
+        // Summary bar
+        const pnlUp = p.pnl_eur >= 0;
+        document.getElementById('ps-value').textContent    = '€' + fmt(p.total_value_eur);
+        document.getElementById('ps-invested').textContent = '€' + fmt(p.total_invested_eur);
+        const pnlEl = document.getElementById('ps-pnl');
+        pnlEl.textContent = sign(p.pnl_eur) + eur(p.pnl_eur);
+        pnlEl.className   = 'ps-val ' + (pnlUp ? 'up' : 'down');
+        const pctEl = document.getElementById('ps-pnl-pct');
+        pctEl.textContent = sign(p.pnl_pct) + fmt(Math.abs(p.pnl_pct)) + '%';
+        pctEl.className   = 'ps-val ' + (pnlUp ? 'up' : 'down');
+        document.getElementById('ps-fx').textContent = fmt(p.fx_eurusd, 4);
+
+        // Ticker chips
+        const row = document.getElementById('ticker-row');
+        row.innerHTML = '';
+        p.positions.forEach(pos => {
+          const up   = pos.pnl_eur >= 0;
+          const tdUp = pos.change_today_pct >= 0;
+          row.innerHTML += `
+            <div class="ticker-chip">
+              <div class="tc-top">
+                <span class="tc-sym">${pos.symbol}</span>
+                <span class="tc-chg ${tdUp?'up':'down'}">${tdUp?'+':''}${fmt(pos.change_today_pct)}%</span>
+              </div>
+              <div class="tc-price">$${fmt(pos.current_usd)} <span style="font-size:0.7rem;color:#555">/ €${fmt(pos.current_eur)}</span></div>
+              <div class="tc-row">
+                <span>${pos.shares}× · ingekocht $${fmt(pos.entry_usd)}</span>
+                <span class="tc-pnl ${up?'up':'down'}">${sign(pos.pnl_eur)}${eur(pos.pnl_eur)} (${sign(pos.pnl_pct)}${fmt(Math.abs(pos.pnl_pct))}%)</span>
+              </div>
+            </div>`;
+        });
+      } catch(e) {
+        document.getElementById('portfolio-updated').textContent = 'DATA UNAVAILABLE';
+      }
+    }
+
+    load();
+    setInterval(load, 5 * 60 * 1000); // refresh every 5 min
+  })();
+
   (function initProgressBars() {
     // Use IntersectionObserver to trigger progress animation on visibility
     const observer = new IntersectionObserver((entries) => {
