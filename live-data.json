@@ -1,5 +1,5 @@
 {
-  "updated": "2026-02-23T22:16:20Z",
+  "updated": "2026-02-23T22:25:54Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
     "total_value_eur": 1887.58,
@@ -80,5 +80,9 @@
         "change_today_pct": -3.21
       }
     ]
+  },
+  "crypto": {
+    "available": false,
+    "reason": "API not reachable"
   }
 }
