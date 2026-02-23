@@ -430,6 +430,110 @@
   .tc-pnl.up   { color: #00ff41; }
   .tc-pnl.down { color: #ff4444; }
 
+  /* ── CRYPTO WIDGET ──────────────────────────────── */
+  .crypto-section {
+    margin: 0 0 24px 0;
+    border: 1px solid rgba(255,170,0,0.2);
+    border-radius: 6px;
+    background: rgba(15,10,0,0.6);
+    padding: 16px 20px;
+  }
+  .crypto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .crypto-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #ffaa00;
+    letter-spacing: 0.12em;
+  }
+  .crypto-updated {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .crypto-summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    padding: 10px 0;
+  }
+  .cs-stat { flex: 1; text-align: center; }
+  .cs-val {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffaa00;
+    letter-spacing: 0.05em;
+  }
+  .cs-key {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+  .cs-divider {
+    width: 1px; height: 36px;
+    background: rgba(255,170,0,0.15);
+  }
+  .coin-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .coin-chip {
+    flex: 1;
+    min-width: 120px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,170,0,0.15);
+    border-radius: 4px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+  }
+  .coin-chip:hover { border-color: rgba(255,170,0,0.4); }
+  .cc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .cc-sym {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #ffaa00;
+    letter-spacing: 0.1em;
+  }
+  .cc-val {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #ffcc55;
+    background: rgba(255,170,0,0.12);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .cc-price {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .cc-amount {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .crypto-offline {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 16px 0 8px;
+  }
+
   @keyframes cardEnter {
     to {
       opacity: 1;
@@ -843,6 +947,23 @@
     </div>
   </section>
 
+  <!-- ── BITVAVO CRYPTO ─────────────────────────────── -->
+  <section class="crypto-section" id="crypto-section">
+    <div class="crypto-header">
+      <span class="crypto-label">◈ CRYPTO — BITVAVO</span>
+      <span class="crypto-updated" id="crypto-updated">LOADING...</span>
+    </div>
+    <div class="crypto-summary" id="crypto-summary" style="display:none">
+      <div class="cs-stat">
+        <div class="cs-val" id="cs-total">—</div>
+        <div class="cs-key">TOTAAL WAARDE</div>
+      </div>
+    </div>
+    <div class="coin-row" id="coin-row">
+      <!-- coins injected by JS -->
+    </div>
+  </section>
+
   <!-- Project Cards -->
   <div class="projects-grid">
 
@@ -1166,6 +1287,71 @@
 
     load();
     setInterval(load, 5 * 60 * 1000); // refresh every 5 min
+  })();
+
+  /* ═══════════════════════════════════════════════════
+     BITVAVO CRYPTO WIDGET
+     ═══════════════════════════════════════════════════ */
+  (function initCrypto() {
+    function fmt(n, dec=2) { return n.toFixed(dec); }
+
+    async function load() {
+      try {
+        const r = await fetch('/live-data.json?t=' + Date.now());
+        if (!r.ok) throw new Error('no data');
+        const d = await r.json();
+        const c = d.crypto;
+
+        if (!c || !c.available) {
+          const reason = (c && c.reason) ? c.reason : 'API unavailable';
+          document.getElementById('crypto-updated').textContent = 'OFFLINE';
+          document.getElementById('coin-row').innerHTML =
+            `<div class="crypto-offline">⚠ BITVAVO ${reason.toUpperCase()} — ACTIVEER API KEY IN BITVAVO DASHBOARD</div>`;
+          return;
+        }
+
+        const ts = new Date(d.updated);
+        document.getElementById('crypto-updated').textContent =
+          'BIJGEWERKT ' + ts.toLocaleTimeString('nl-NL', {hour:'2-digit',minute:'2-digit'}) + ' UTC';
+
+        // Summary
+        const sumEl = document.getElementById('crypto-summary');
+        sumEl.style.display = 'flex';
+        document.getElementById('cs-total').textContent = '€' + fmt(c.total_eur);
+
+        // Coin chips
+        const row = document.getElementById('coin-row');
+        row.innerHTML = '';
+        if (!c.holdings || c.holdings.length === 0) {
+          row.innerHTML = '<div class="crypto-offline">GEEN HOLDINGS GEVONDEN</div>';
+          return;
+        }
+        c.holdings.forEach(h => {
+          const amountFmt = h.amount < 0.01
+            ? h.amount.toFixed(8)
+            : h.amount.toFixed(4);
+          const priceFmt = h.price_eur >= 1000
+            ? '€' + Math.round(h.price_eur).toLocaleString('nl-NL')
+            : h.symbol === 'EUR'
+              ? '—'
+              : '€' + fmt(h.price_eur);
+          row.innerHTML += `
+            <div class="coin-chip">
+              <div class="cc-top">
+                <span class="cc-sym">${h.symbol}</span>
+                <span class="cc-val">€${fmt(h.value_eur)}</span>
+              </div>
+              <div class="cc-price">${priceFmt}</div>
+              <div class="cc-amount">${amountFmt} ${h.symbol}</div>
+            </div>`;
+        });
+      } catch(e) {
+        document.getElementById('crypto-updated').textContent = 'DATA UNAVAILABLE';
+      }
+    }
+
+    load();
+    setInterval(load, 5 * 60 * 1000);
   })();
 
   (function initProgressBars() {

@@ -4,7 +4,8 @@ VENOM — Live Data Fetcher
 Runs via GitHub Actions every 15 min.
 Writes live-data.json to repo root.
 """
-import json, datetime, yfinance as yf
+import json, datetime, os, hmac, hashlib, time, urllib.request, urllib.error
+import yfinance as yf
 
 # ── Portfolio positions (buy prices) ──────────────────────────────
 POSITIONS = [
@@ -16,6 +17,94 @@ POSITIONS = [
 ]
 TOTAL_INVESTED_EUR = 1896.06
 CASH_EUR           = 95.61
+
+# ── Bitvavo API ───────────────────────────────────────────────────
+BITVAVO_KEY    = os.environ.get("BITVAVO_API_KEY", "")
+BITVAVO_SECRET = os.environ.get("BITVAVO_API_SECRET", "")
+
+def bitvavo_request(endpoint):
+    """Authenticated Bitvavo REST call. Returns parsed JSON or None on error."""
+    if not BITVAVO_KEY or not BITVAVO_SECRET:
+        return None
+    ts  = str(int(time.time() * 1000))
+    msg = ts + "GET" + "/v2" + endpoint
+    sig = hmac.new(BITVAVO_SECRET.encode(), msg.encode(), hashlib.sha256).hexdigest()
+    headers = {
+        "Bitvavo-Access-Key":       BITVAVO_KEY,
+        "Bitvavo-Access-Signature": sig,
+        "Bitvavo-Access-Timestamp": ts,
+        "Bitvavo-Access-Window":    "10000",
+    }
+    req = urllib.request.Request(
+        "https://api.bitvavo.com/v2" + endpoint,
+        headers=headers
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as r:
+            return json.loads(r.read())
+    except Exception as e:
+        print(f"  Bitvavo error ({endpoint}): {e}")
+        return None
+
+def fetch_bitvavo():
+    """Fetch Bitvavo balances + EUR prices. Returns dict ready for live-data.json."""
+    balances_raw = bitvavo_request("/balance")
+    if balances_raw is None:
+        return {"available": False, "reason": "API not reachable"}
+    if isinstance(balances_raw, dict) and "error" in balances_raw:
+        return {"available": False, "reason": balances_raw.get("error", "API error")}
+
+    holdings = []
+    total_eur = 0.0
+
+    for b in balances_raw:
+        sym   = b.get("symbol", "")
+        avail = float(b.get("available", 0))
+        inord = float(b.get("inOrder", 0))
+        total = avail + inord
+        if total < 0.000001:
+            continue
+
+        if sym == "EUR":
+            holdings.append({
+                "symbol": "EUR", "name": "Euro",
+                "amount": round(total, 2),
+                "price_eur": 1.0,
+                "value_eur": round(total, 2),
+            })
+            total_eur += total
+            continue
+
+        # Fetch current EUR price
+        market  = f"{sym}-EUR"
+        ticker  = bitvavo_request(f"/ticker/price?market={market}")
+        if ticker and "price" in ticker:
+            price_eur = float(ticker["price"])
+        else:
+            # Try 24h ticker
+            ticker24 = bitvavo_request(f"/ticker/24h?market={market}")
+            price_eur = float(ticker24.get("last", 0)) if ticker24 else 0.0
+
+        value_eur = total * price_eur
+        total_eur += value_eur
+
+        holdings.append({
+            "symbol":    sym,
+            "name":      sym,
+            "amount":    round(total, 8),
+            "price_eur": round(price_eur, 2),
+            "value_eur": round(value_eur, 2),
+        })
+
+    # Sort by value descending
+    holdings.sort(key=lambda x: x["value_eur"], reverse=True)
+
+    return {
+        "available":  True,
+        "total_eur":  round(total_eur, 2),
+        "holdings":   holdings,
+    }
+
 
 # ── Fetch EUR/USD exchange rate ───────────────────────────────────
 fx_ticker  = yf.Ticker("EURUSD=X")
@@ -68,6 +157,15 @@ for p in POSITIONS:
 total_pnl_eur = total_value_eur - TOTAL_INVESTED_EUR
 total_pnl_pct = total_pnl_eur / TOTAL_INVESTED_EUR * 100
 
+# ── Fetch Bitvavo crypto ──────────────────────────────────────────
+print("Fetching Bitvavo...")
+crypto_data = fetch_bitvavo()
+if crypto_data.get("available"):
+    print(f"  Bitvavo ✅ — total €{crypto_data['total_eur']:.2f}, {len(crypto_data['holdings'])} holdings")
+else:
+    print(f"  Bitvavo ⚠️  — {crypto_data.get('reason','unavailable')}")
+
+# ── Write JSON ────────────────────────────────────────────────────
 data = {
     "updated": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
     "portfolio": {
@@ -79,7 +177,8 @@ data = {
         "pnl_pct":            round(total_pnl_pct, 2),
         "fx_eurusd":          round(fx_eurusd, 4),
         "positions":          results,
-    }
+    },
+    "crypto": crypto_data,
 }
 
 with open("live-data.json", "w") as f:
