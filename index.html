@@ -121,6 +121,27 @@
     flex: 1;
   }
 
+  .header-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 0 2rem;
+  }
+
+  .gekko-spin {
+    width: 90px;
+    height: 90px;
+    animation: gekkoRotate 12s linear infinite;
+    filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(90deg)
+            drop-shadow(0 0 8px #00ff4180) drop-shadow(0 0 28px #00ff4150);
+  }
+
+  @keyframes gekkoRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
   .header-right {
     text-align: right;
     flex-shrink: 0;
@@ -912,6 +933,9 @@
     <div class="header-left">
       <h1 class="title">VENOM OPS BOARD</h1>
       <p class="subtitle"><span>GEKKO AGENCY</span> &mdash; MISSION CONTROL</p>
+    </div>
+    <div class="header-center">
+      <img src="gekko.svg" class="gekko-spin" alt="GEKKO" />
     </div>
     <div class="header-right">
       <div class="clock" id="clock">00:00:00</div>
