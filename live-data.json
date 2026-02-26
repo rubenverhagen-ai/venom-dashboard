@@ -1,13 +1,13 @@
 {
-  "updated": "2026-02-26T23:04:15Z",
+  "updated": "2026-02-26T23:59:39Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 1891.88,
+    "total_value_eur": 1889.8,
     "cash_eur": 95.61,
-    "total_with_cash": 1987.49,
-    "pnl_eur": -4.18,
-    "pnl_pct": -0.22,
-    "fx_eurusd": 1.1802,
+    "total_with_cash": 1985.41,
+    "pnl_eur": -6.26,
+    "pnl_pct": -0.33,
+    "fx_eurusd": 1.1815,
     "positions": [
       {
         "symbol": "NVDA",
@@ -16,11 +16,11 @@
         "entry_usd": 191.12,
         "entry_eur": 162.01,
         "current_usd": 184.89,
-        "current_eur": 156.66,
+        "current_eur": 156.49,
         "invested_eur": 648.04,
-        "value_eur": 626.63,
-        "pnl_eur": -21.41,
-        "pnl_pct": -3.3,
+        "value_eur": 625.94,
+        "pnl_eur": -22.1,
+        "pnl_pct": -3.41,
         "change_today_pct": -5.46
       },
       {
@@ -30,11 +30,11 @@
         "entry_usd": 314.19,
         "entry_eur": 266.33,
         "current_usd": 307.38,
-        "current_eur": 260.44,
+        "current_eur": 260.16,
         "invested_eur": 266.33,
-        "value_eur": 260.44,
-        "pnl_eur": -5.89,
-        "pnl_pct": -2.21,
+        "value_eur": 260.16,
+        "pnl_eur": -6.17,
+        "pnl_pct": -2.32,
         "change_today_pct": -1.76
       },
       {
@@ -44,11 +44,11 @@
         "entry_usd": 368.62,
         "entry_eur": 312.47,
         "current_usd": 376.81,
-        "current_eur": 319.27,
+        "current_eur": 318.92,
         "invested_eur": 312.47,
-        "value_eur": 319.27,
-        "pnl_eur": 6.8,
-        "pnl_pct": 2.18,
+        "value_eur": 318.92,
+        "pnl_eur": 6.45,
+        "pnl_pct": 2.06,
         "change_today_pct": -2.82
       },
       {
@@ -58,11 +58,11 @@
         "entry_usd": 196.18,
         "entry_eur": 166.25,
         "current_usd": 203.68,
-        "current_eur": 172.58,
+        "current_eur": 172.39,
         "invested_eur": 332.5,
-        "value_eur": 345.16,
-        "pnl_eur": 12.66,
-        "pnl_pct": 3.81,
+        "value_eur": 344.78,
+        "pnl_eur": 12.28,
+        "pnl_pct": 3.69,
         "change_today_pct": -3.41
       },
       {
@@ -72,11 +72,11 @@
         "entry_usd": 397.23,
         "entry_eur": 336.72,
         "current_usd": 401.72,
-        "current_eur": 340.38,
+        "current_eur": 340.0,
         "invested_eur": 336.72,
-        "value_eur": 340.38,
-        "pnl_eur": 3.66,
-        "pnl_pct": 1.09,
+        "value_eur": 340.0,
+        "pnl_eur": 3.28,
+        "pnl_pct": 0.98,
         "change_today_pct": 0.28
       }
     ]
