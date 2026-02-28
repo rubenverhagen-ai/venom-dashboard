@@ -549,6 +549,133 @@
     padding: 16px 0 8px;
   }
 
+  /* ── AI INVESTMENT STRATEGY ─────────────────────── */
+  .strategy-section {
+    margin: 0 0 24px 0;
+    border: 1px solid rgba(0,180,255,0.2);
+    border-radius: 6px;
+    background: rgba(0,8,20,0.7);
+    padding: 16px 20px;
+  }
+  .strategy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .strategy-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #00b4ff;
+    letter-spacing: 0.12em;
+  }
+  .strategy-date {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .strategy-scenarios {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .scenario-card {
+    flex: 1;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,180,255,0.12);
+    border-radius: 4px;
+    padding: 12px;
+    text-align: center;
+  }
+  .scenario-card.bear { border-color: rgba(255,68,68,0.25); }
+  .scenario-card.base { border-color: rgba(0,180,255,0.3); }
+  .scenario-card.bull { border-color: rgba(0,255,65,0.3); }
+  .sc-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+  .sc-val {
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  .sc-val.bear { color: #ff6666; }
+  .sc-val.base { color: #00b4ff; }
+  .sc-val.bull { color: #00ff41; }
+  .sc-cagr {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .tier-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .tier-block {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(0,180,255,0.1);
+    border-radius: 4px;
+    padding: 10px 14px;
+  }
+  .tier-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: #00b4ff;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  .tier-picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pick-chip {
+    background: rgba(0,180,255,0.08);
+    border: 1px solid rgba(0,180,255,0.2);
+    border-radius: 3px;
+    padding: 4px 9px;
+    font-size: 0.7rem;
+    color: #c0e8ff;
+    letter-spacing: 0.06em;
+  }
+  .pick-chip.skip {
+    background: rgba(255,68,68,0.08);
+    border-color: rgba(255,68,68,0.2);
+    color: #ffaaaa;
+    text-decoration: line-through;
+  }
+  .pick-chip.hold {
+    background: rgba(255,170,0,0.08);
+    border-color: rgba(255,170,0,0.2);
+    color: #ffd080;
+  }
+  .venom-verdict {
+    background: rgba(0,0,0,0.4);
+    border-left: 3px solid #00b4ff;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 14px;
+    margin-top: 4px;
+  }
+  .vv-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: #00b4ff;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  .vv-line {
+    font-size: 0.7rem;
+    color: #a0c8d8;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+  .vv-line span.warn { color: #ffaa44; }
+  .vv-line span.ok   { color: #00ff41; }
+
   @keyframes cardEnter {
     to {
       opacity: 1;
@@ -1055,6 +1182,80 @@
     </div>
     <div class="coin-row" id="coin-row">
       <!-- coins injected by JS -->
+    </div>
+  </section>
+
+  <!-- ── AI INVESTMENT STRATEGY ───────────────────── -->
+  <section class="strategy-section">
+    <div class="strategy-header">
+      <span class="strategy-label">◈ AI INVESTMENT STRATEGY — 2026/2028</span>
+      <span class="strategy-date">OPGESTELD FEB 2026</span>
+    </div>
+
+    <!-- 5-year scenarios (€15k base) -->
+    <div class="strategy-scenarios">
+      <div class="scenario-card bear">
+        <div class="sc-label">BEAR CASE</div>
+        <div class="sc-val bear">~€42.000</div>
+        <div class="sc-cagr">~12% / JAAR · 2035</div>
+      </div>
+      <div class="scenario-card base">
+        <div class="sc-label">BASE CASE</div>
+        <div class="sc-val base">~€120.000</div>
+        <div class="sc-cagr">~26% / JAAR · 2035</div>
+      </div>
+      <div class="scenario-card bull">
+        <div class="sc-label">BULL CASE</div>
+        <div class="sc-val bull">~€310.000+</div>
+        <div class="sc-cagr">~40%+ / JAAR · 2035</div>
+      </div>
+    </div>
+
+    <!-- Tiers -->
+    <div class="tier-grid">
+      <div class="tier-block">
+        <div class="tier-title">TIER 1 — FUNDAMENT (60%) · AI INFRASTRUCTURE</div>
+        <div class="tier-picks">
+          <span class="pick-chip hold">NVDA ✓ IN BEZIT</span>
+          <span class="pick-chip hold">GOOGL ✓ IN BEZIT</span>
+          <span class="pick-chip hold">TSM ✓ IN BEZIT</span>
+          <span class="pick-chip">MSFT</span>
+          <span class="pick-chip">AMD</span>
+        </div>
+      </div>
+      <div class="tier-block">
+        <div class="tier-title">TIER 2 — GROEI / SATELLIET (25%) · PLATFORM + SECURITY</div>
+        <div class="tier-picks">
+          <span class="pick-chip">LLY (ELI LILLY)</span>
+          <span class="pick-chip">CRWD (CROWDSTRIKE)</span>
+          <span class="pick-chip">AMZN</span>
+          <span class="pick-chip">ISRG (INTUITIVE SURG.)</span>
+          <span class="pick-chip skip">ZM (ZOOM)</span>
+          <span class="pick-chip skip">AGIX ETF ⚠ VERIFY</span>
+        </div>
+      </div>
+      <div class="tier-block">
+        <div class="tier-title">TIER 3 — IPO CASH / MOONSHOTS (15%) · DRY POWDER</div>
+        <div class="tier-picks">
+          <span class="pick-chip">ANTHROPIC IPO (BIJ EERSTE DIP)</span>
+          <span class="pick-chip">OPENAI IPO (2026/27)</span>
+          <span class="pick-chip">FSLR (FIRST SOLAR)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Venom's take -->
+    <div class="venom-verdict">
+      <div class="vv-title">◈ VENOM VERDICT</div>
+      <div class="vv-line">
+        <span class="ok">✓</span> NVDA / GOOGL / TSM fundament is solide — bouw deze posities uit bij dips.<br>
+        <span class="ok">✓</span> Eli Lilly (LLY) sterkste non-AI pick — 30%+ hist. CAGR, dominant GLP-1.<br>
+        <span class="ok">✓</span> CrowdStrike beste cybersecurity keuze — 22% winstgroei, extreem sticky.<br>
+        <span class="warn">⚠</span> Zoom skippen — Teams vreet core business op, Anthropic-stake-these is speculatief.<br>
+        <span class="warn">⚠</span> AGIX ETF = SingularityNET token (crypto), geen ETF — verifieer ticker voor je koopt.<br>
+        <span class="warn">⚠</span> Anthropic IPO: koop bij eerste dip, NIET op dag 1 — 60%+ van IPO's daalt in 6 mnd.<br>
+        <span class="warn">⚠</span> Novo Nordisk (NVO): wachten — €38 kan nog lager, CagriSema structureel probleem.
+      </div>
     </div>
   </section>
 
