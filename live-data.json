@@ -1,12 +1,12 @@
 {
-  "updated": "2026-03-22T17:16:45Z",
+  "updated": "2026-03-22T17:47:11Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 1819.0,
+    "total_value_eur": 1819.78,
     "cash_eur": 95.61,
-    "total_with_cash": 1914.61,
-    "pnl_eur": -77.06,
-    "pnl_pct": -4.06,
+    "total_with_cash": 1915.39,
+    "pnl_eur": -76.28,
+    "pnl_pct": -4.02,
     "fx_eurusd": 1.1575,
     "positions": [
       {
@@ -15,13 +15,13 @@
         "shares": 4,
         "entry_usd": 191.12,
         "entry_eur": 162.01,
-        "current_usd": 172.7,
-        "current_eur": 149.2,
+        "current_usd": 172.93,
+        "current_eur": 149.39,
         "invested_eur": 648.04,
-        "value_eur": 596.78,
-        "pnl_eur": -51.26,
-        "pnl_pct": -7.91,
-        "change_today_pct": -3.28
+        "value_eur": 597.58,
+        "pnl_eur": -50.46,
+        "pnl_pct": -7.79,
+        "change_today_pct": -3.15
       },
       {
         "symbol": "GOOGL",
@@ -71,11 +71,11 @@
         "shares": 1,
         "entry_usd": 397.23,
         "entry_eur": 336.72,
-        "current_usd": 381.87,
-        "current_eur": 329.9,
+        "current_usd": 381.85,
+        "current_eur": 329.88,
         "invested_eur": 336.72,
-        "value_eur": 329.9,
-        "pnl_eur": -6.82,
+        "value_eur": 329.88,
+        "pnl_eur": -6.84,
         "pnl_pct": -2.03,
         "change_today_pct": -1.84
       }
@@ -83,21 +83,21 @@
   },
   "crypto": {
     "available": true,
-    "total_eur": 669.45,
+    "total_eur": 672.98,
     "holdings": [
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.11134107,
-        "price_eur": 2.76,
-        "value_eur": 420.53
+        "price_eur": 2.79,
+        "value_eur": 424.57
       },
       {
         "symbol": "SOL",
         "name": "SOL",
         "amount": 2.95796141,
-        "price_eur": 75.76,
-        "value_eur": 224.09
+        "price_eur": 75.58,
+        "value_eur": 223.57
       },
       {
         "symbol": "LINK",
