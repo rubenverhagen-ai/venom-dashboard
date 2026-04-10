@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-10T22:39:55Z",
+  "updated": "2026-04-10T23:19:34Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
     "total_value_eur": 1963.8,
@@ -110,8 +110,8 @@
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.10998892,
-        "price_eur": 72.32,
-        "value_eur": 7.95
+        "price_eur": 72.33,
+        "value_eur": 7.96
       }
     ]
   }
