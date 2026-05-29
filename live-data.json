@@ -1,12 +1,12 @@
 {
-  "updated": "2026-05-29T17:25:18Z",
+  "updated": "2026-05-29T19:44:19Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 2674.22,
+    "total_value_eur": 2681.03,
     "cash_eur": 95.61,
-    "total_with_cash": 2769.83,
-    "pnl_eur": 778.16,
-    "pnl_pct": 41.04,
+    "total_with_cash": 2776.64,
+    "pnl_eur": 784.97,
+    "pnl_pct": 41.4,
     "fx_eurusd": 1.1671,
     "positions": [
       {
@@ -15,13 +15,13 @@
         "shares": 4,
         "entry_usd": 191.12,
         "entry_eur": 162.01,
-        "current_usd": 216.45,
-        "current_eur": 185.45,
+        "current_usd": 217.13,
+        "current_eur": 186.04,
         "invested_eur": 648.04,
-        "value_eur": 741.82,
-        "pnl_eur": 93.78,
-        "pnl_pct": 14.47,
-        "change_today_pct": 1.03
+        "value_eur": 744.15,
+        "pnl_eur": 96.11,
+        "pnl_pct": 14.83,
+        "change_today_pct": 1.34
       },
       {
         "symbol": "GOOGL",
@@ -29,12 +29,12 @@
         "shares": 1,
         "entry_usd": 314.19,
         "entry_eur": 266.33,
-        "current_usd": 382.15,
-        "current_eur": 327.43,
+        "current_usd": 382.13,
+        "current_eur": 327.41,
         "invested_eur": 266.33,
-        "value_eur": 327.43,
-        "pnl_eur": 61.1,
-        "pnl_pct": 22.94,
+        "value_eur": 327.41,
+        "pnl_eur": 61.08,
+        "pnl_pct": 22.93,
         "change_today_pct": -2.05
       },
       {
@@ -43,13 +43,13 @@
         "shares": 1,
         "entry_usd": 368.62,
         "entry_eur": 312.47,
-        "current_usd": 419.64,
-        "current_eur": 359.55,
+        "current_usd": 418.8,
+        "current_eur": 358.83,
         "invested_eur": 312.47,
-        "value_eur": 359.55,
-        "pnl_eur": 47.08,
-        "pnl_pct": 15.07,
-        "change_today_pct": -1.23
+        "value_eur": 358.83,
+        "pnl_eur": 46.36,
+        "pnl_pct": 14.84,
+        "change_today_pct": -1.43
       },
       {
         "symbol": "AMD",
@@ -57,13 +57,13 @@
         "shares": 2,
         "entry_usd": 196.18,
         "entry_eur": 166.25,
-        "current_usd": 505.12,
-        "current_eur": 432.79,
+        "current_usd": 508.37,
+        "current_eur": 435.57,
         "invested_eur": 332.5,
-        "value_eur": 865.57,
-        "pnl_eur": 533.07,
-        "pnl_pct": 160.32,
-        "change_today_pct": -2.5
+        "value_eur": 871.14,
+        "pnl_eur": 538.64,
+        "pnl_pct": 162.0,
+        "change_today_pct": -1.88
       },
       {
         "symbol": "MSFT",
@@ -71,47 +71,47 @@
         "shares": 1,
         "entry_usd": 397.23,
         "entry_eur": 336.72,
-        "current_usd": 443.34,
-        "current_eur": 379.85,
+        "current_usd": 442.93,
+        "current_eur": 379.5,
         "invested_eur": 336.72,
-        "value_eur": 379.85,
-        "pnl_eur": 43.13,
-        "pnl_pct": 12.81,
-        "change_today_pct": 3.83
+        "value_eur": 379.5,
+        "pnl_eur": 42.78,
+        "pnl_pct": 12.71,
+        "change_today_pct": 3.73
       }
     ]
   },
   "crypto": {
     "available": true,
-    "total_eur": 529.81,
+    "total_eur": 522.72,
     "holdings": [
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.1250076,
-        "price_eur": 1.71,
-        "value_eur": 259.4
+        "price_eur": 1.67,
+        "value_eur": 254.6
       },
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 63621.0,
-        "value_eur": 245.45
+        "price_eur": 63070.0,
+        "value_eur": 243.33
       },
       {
         "symbol": "LINK",
         "name": "LINK",
         "amount": 1.10854591,
-        "price_eur": 7.8,
-        "value_eur": 8.64
+        "price_eur": 7.72,
+        "value_eur": 8.56
       },
       {
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11916762,
-        "price_eur": 71.1,
-        "value_eur": 8.47
+        "price_eur": 70.47,
+        "value_eur": 8.4
       },
       {
         "symbol": "EUR",
