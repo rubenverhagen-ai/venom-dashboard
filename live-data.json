@@ -1,13 +1,13 @@
 {
-  "updated": "2026-06-17T19:48:03Z",
+  "updated": "2026-06-17T21:51:35Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 2630.31,
+    "total_value_eur": 2622.7,
     "cash_eur": 95.61,
-    "total_with_cash": 2725.92,
-    "pnl_eur": 734.25,
-    "pnl_pct": 38.73,
-    "fx_eurusd": 1.1492,
+    "total_with_cash": 2718.31,
+    "pnl_eur": 726.64,
+    "pnl_pct": 38.32,
+    "fx_eurusd": 1.1509,
     "positions": [
       {
         "symbol": "NVDA",
@@ -15,13 +15,13 @@
         "shares": 4,
         "entry_usd": 191.12,
         "entry_eur": 162.01,
-        "current_usd": 204.31,
-        "current_eur": 177.79,
+        "current_usd": 204.65,
+        "current_eur": 177.82,
         "invested_eur": 648.04,
-        "value_eur": 711.16,
-        "pnl_eur": 63.12,
-        "pnl_pct": 9.74,
-        "change_today_pct": -1.49
+        "value_eur": 711.28,
+        "pnl_eur": 63.24,
+        "pnl_pct": 9.76,
+        "change_today_pct": -1.33
       },
       {
         "symbol": "GOOGL",
@@ -29,13 +29,13 @@
         "shares": 1,
         "entry_usd": 314.19,
         "entry_eur": 266.33,
-        "current_usd": 364.38,
-        "current_eur": 317.08,
+        "current_usd": 363.79,
+        "current_eur": 316.1,
         "invested_eur": 266.33,
-        "value_eur": 317.08,
-        "pnl_eur": 50.75,
-        "pnl_pct": 19.05,
-        "change_today_pct": -2.38
+        "value_eur": 316.1,
+        "pnl_eur": 49.77,
+        "pnl_pct": 18.69,
+        "change_today_pct": -2.53
       },
       {
         "symbol": "TSM",
@@ -43,13 +43,13 @@
         "shares": 1,
         "entry_usd": 368.62,
         "entry_eur": 312.47,
-        "current_usd": 434.01,
-        "current_eur": 377.67,
+        "current_usd": 432.15,
+        "current_eur": 375.5,
         "invested_eur": 312.47,
-        "value_eur": 377.67,
-        "pnl_eur": 65.2,
-        "pnl_pct": 20.87,
-        "change_today_pct": 1.92
+        "value_eur": 375.5,
+        "pnl_eur": 63.03,
+        "pnl_pct": 20.17,
+        "change_today_pct": 1.48
       },
       {
         "symbol": "AMD",
@@ -57,13 +57,13 @@
         "shares": 2,
         "entry_usd": 196.18,
         "entry_eur": 166.25,
-        "current_usd": 514.38,
-        "current_eur": 447.61,
+        "current_usd": 512.48,
+        "current_eur": 445.29,
         "invested_eur": 332.5,
-        "value_eur": 895.23,
-        "pnl_eur": 562.73,
-        "pnl_pct": 169.24,
-        "change_today_pct": 1.4
+        "value_eur": 890.59,
+        "pnl_eur": 558.09,
+        "pnl_pct": 167.85,
+        "change_today_pct": 1.02
       },
       {
         "symbol": "MSFT",
@@ -71,33 +71,33 @@
         "shares": 1,
         "entry_usd": 397.23,
         "entry_eur": 336.72,
-        "current_usd": 378.27,
-        "current_eur": 329.17,
+        "current_usd": 378.91,
+        "current_eur": 329.23,
         "invested_eur": 336.72,
-        "value_eur": 329.17,
-        "pnl_eur": -7.55,
-        "pnl_pct": -2.24,
-        "change_today_pct": -3.95
+        "value_eur": 329.23,
+        "pnl_eur": -7.49,
+        "pnl_pct": -2.22,
+        "change_today_pct": -3.79
       }
     ]
   },
   "crypto": {
     "available": true,
-    "total_eur": 492.73,
+    "total_eur": 492.79,
     "holdings": [
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.12884116,
         "price_eur": 1.67,
-        "value_eur": 254.22
+        "value_eur": 254.54
       },
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 55851.0,
-        "value_eur": 215.47
+        "price_eur": 55799.0,
+        "value_eur": 215.27
       },
       {
         "symbol": "EUR",
@@ -110,15 +110,15 @@
         "symbol": "LINK",
         "name": "LINK",
         "amount": 1.10855227,
-        "price_eur": 6.99,
-        "value_eur": 7.75
+        "price_eur": 6.97,
+        "value_eur": 7.73
       },
       {
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11924942,
-        "price_eur": 62.42,
-        "value_eur": 7.44
+        "price_eur": 62.09,
+        "value_eur": 7.4
       }
     ]
   }
