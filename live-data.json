@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-23T22:35:44Z",
+  "updated": "2026-07-23T23:34:09Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
     "total_value_eur": 2661.52,
@@ -83,21 +83,21 @@
   },
   "crypto": {
     "available": true,
-    "total_eur": 460.45,
+    "total_eur": 459.82,
     "holdings": [
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 57253.0,
-        "value_eur": 220.88
+        "price_eur": 57234.0,
+        "value_eur": 220.81
       },
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.13530009,
-        "price_eur": 1.42,
-        "value_eur": 215.48
+        "price_eur": 1.41,
+        "value_eur": 214.92
       },
       {
         "symbol": "LINK",
@@ -110,8 +110,8 @@
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11938587,
-        "price_eur": 66.92,
-        "value_eur": 7.99
+        "price_eur": 66.86,
+        "value_eur": 7.98
       },
       {
         "symbol": "EUR",
