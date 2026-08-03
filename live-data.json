@@ -1,13 +1,13 @@
 {
-  "updated": "2026-08-03T04:45:32Z",
+  "updated": "2026-08-03T08:19:07Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 2582.81,
+    "total_value_eur": 2585.5,
     "cash_eur": 95.61,
-    "total_with_cash": 2678.42,
-    "pnl_eur": 686.75,
-    "pnl_pct": 36.22,
-    "fx_eurusd": 1.1539,
+    "total_with_cash": 2681.11,
+    "pnl_eur": 689.44,
+    "pnl_pct": 36.36,
+    "fx_eurusd": 1.1527,
     "positions": [
       {
         "symbol": "NVDA",
@@ -16,11 +16,11 @@
         "entry_usd": 191.12,
         "entry_eur": 162.01,
         "current_usd": 200.75,
-        "current_eur": 173.97,
+        "current_eur": 174.15,
         "invested_eur": 648.04,
-        "value_eur": 695.88,
-        "pnl_eur": 47.84,
-        "pnl_pct": 7.38,
+        "value_eur": 696.6,
+        "pnl_eur": 48.56,
+        "pnl_pct": 7.49,
         "change_today_pct": 2.93
       },
       {
@@ -30,11 +30,11 @@
         "entry_usd": 314.19,
         "entry_eur": 266.33,
         "current_usd": 356.13,
-        "current_eur": 308.62,
+        "current_eur": 308.94,
         "invested_eur": 266.33,
-        "value_eur": 308.62,
-        "pnl_eur": 42.29,
-        "pnl_pct": 15.88,
+        "value_eur": 308.94,
+        "pnl_eur": 42.61,
+        "pnl_pct": 16.0,
         "change_today_pct": 6.73
       },
       {
@@ -44,11 +44,11 @@
         "entry_usd": 368.62,
         "entry_eur": 312.47,
         "current_usd": 404.25,
-        "current_eur": 350.32,
+        "current_eur": 350.69,
         "invested_eur": 312.47,
-        "value_eur": 350.32,
-        "pnl_eur": 37.85,
-        "pnl_pct": 12.11,
+        "value_eur": 350.69,
+        "pnl_eur": 38.22,
+        "pnl_pct": 12.23,
         "change_today_pct": 0.23
       },
       {
@@ -58,11 +58,11 @@
         "entry_usd": 196.18,
         "entry_eur": 166.25,
         "current_usd": 476.15,
-        "current_eur": 412.63,
+        "current_eur": 413.06,
         "invested_eur": 332.5,
-        "value_eur": 825.26,
-        "pnl_eur": 492.76,
-        "pnl_pct": 148.2,
+        "value_eur": 826.12,
+        "pnl_eur": 493.62,
+        "pnl_pct": 148.46,
         "change_today_pct": -1.9
       },
       {
@@ -72,39 +72,39 @@
         "entry_usd": 397.23,
         "entry_eur": 336.72,
         "current_usd": 464.72,
-        "current_eur": 402.73,
+        "current_eur": 403.14,
         "invested_eur": 336.72,
-        "value_eur": 402.73,
-        "pnl_eur": 66.01,
-        "pnl_pct": 19.6,
+        "value_eur": 403.14,
+        "pnl_eur": 66.42,
+        "pnl_pct": 19.73,
         "change_today_pct": 3.02
       }
     ]
   },
   "crypto": {
     "available": true,
-    "total_eur": 422.92,
+    "total_eur": 421.99,
     "holdings": [
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 54507.0,
-        "value_eur": 210.29
+        "price_eur": 54168.0,
+        "value_eur": 208.98
       },
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.13675856,
-        "price_eur": 1.24,
-        "value_eur": 189.29
+        "price_eur": 1.25,
+        "value_eur": 189.78
       },
       {
         "symbol": "LINK",
         "name": "LINK",
         "amount": 1.10856499,
-        "price_eur": 7.16,
-        "value_eur": 7.94
+        "price_eur": 7.12,
+        "value_eur": 7.89
       },
       {
         "symbol": "EUR",
@@ -117,8 +117,8 @@
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11941318,
-        "price_eur": 63.26,
-        "value_eur": 7.55
+        "price_eur": 62.81,
+        "value_eur": 7.5
       }
     ]
   }
