@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-15T14:36:09Z",
+  "updated": "2026-08-15T14:56:16Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
     "total_value_eur": 2762.59,
@@ -83,14 +83,14 @@
   },
   "crypto": {
     "available": true,
-    "total_eur": 420.42,
+    "total_eur": 420.47,
     "holdings": [
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 54461.0,
-        "value_eur": 210.11
+        "price_eur": 54474.0,
+        "value_eur": 210.16
       },
       {
         "symbol": "TRUMP",
