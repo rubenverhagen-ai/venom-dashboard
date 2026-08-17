@@ -1,13 +1,13 @@
 {
-  "updated": "2026-08-17T17:15:42Z",
+  "updated": "2026-08-17T17:50:18Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
-    "total_value_eur": 2744.35,
+    "total_value_eur": 2744.88,
     "cash_eur": 95.61,
-    "total_with_cash": 2839.96,
-    "pnl_eur": 848.29,
-    "pnl_pct": 44.74,
-    "fx_eurusd": 1.159,
+    "total_with_cash": 2840.49,
+    "pnl_eur": 848.82,
+    "pnl_pct": 44.77,
+    "fx_eurusd": 1.1583,
     "positions": [
       {
         "symbol": "NVDA",
@@ -15,13 +15,13 @@
         "shares": 4,
         "entry_usd": 191.12,
         "entry_eur": 162.01,
-        "current_usd": 226.34,
-        "current_eur": 195.29,
+        "current_usd": 226.15,
+        "current_eur": 195.23,
         "invested_eur": 648.04,
-        "value_eur": 781.14,
-        "pnl_eur": 133.1,
-        "pnl_pct": 20.54,
-        "change_today_pct": 0.52
+        "value_eur": 780.92,
+        "pnl_eur": 132.88,
+        "pnl_pct": 20.51,
+        "change_today_pct": 0.44
       },
       {
         "symbol": "GOOGL",
@@ -29,13 +29,13 @@
         "shares": 1,
         "entry_usd": 314.19,
         "entry_eur": 266.33,
-        "current_usd": 343.2,
-        "current_eur": 296.11,
+        "current_usd": 343.3,
+        "current_eur": 296.37,
         "invested_eur": 266.33,
-        "value_eur": 296.11,
-        "pnl_eur": 29.78,
-        "pnl_pct": 11.18,
-        "change_today_pct": -0.78
+        "value_eur": 296.37,
+        "pnl_eur": 30.04,
+        "pnl_pct": 11.28,
+        "change_today_pct": -0.75
       },
       {
         "symbol": "TSM",
@@ -43,13 +43,13 @@
         "shares": 1,
         "entry_usd": 368.62,
         "entry_eur": 312.47,
-        "current_usd": 431.56,
+        "current_usd": 431.32,
         "current_eur": 372.35,
         "invested_eur": 312.47,
         "value_eur": 372.35,
         "pnl_eur": 59.88,
         "pnl_pct": 19.16,
-        "change_today_pct": 1.22
+        "change_today_pct": 1.16
       },
       {
         "symbol": "AMD",
@@ -57,13 +57,13 @@
         "shares": 2,
         "entry_usd": 196.18,
         "entry_eur": 166.25,
-        "current_usd": 510.54,
-        "current_eur": 440.49,
+        "current_usd": 510.5,
+        "current_eur": 440.71,
         "invested_eur": 332.5,
-        "value_eur": 880.99,
-        "pnl_eur": 548.49,
-        "pnl_pct": 164.96,
-        "change_today_pct": -0.75
+        "value_eur": 881.43,
+        "pnl_eur": 548.93,
+        "pnl_pct": 165.09,
+        "change_today_pct": -0.76
       },
       {
         "symbol": "MSFT",
@@ -71,40 +71,40 @@
         "shares": 1,
         "entry_usd": 397.23,
         "entry_eur": 336.72,
-        "current_usd": 479.55,
-        "current_eur": 413.76,
+        "current_usd": 479.33,
+        "current_eur": 413.81,
         "invested_eur": 336.72,
-        "value_eur": 413.76,
-        "pnl_eur": 77.04,
-        "pnl_pct": 22.88,
-        "change_today_pct": -3.2
+        "value_eur": 413.81,
+        "pnl_eur": 77.09,
+        "pnl_pct": 22.89,
+        "change_today_pct": -3.24
       }
     ]
   },
   "crypto": {
     "available": true,
-    "total_eur": 422.11,
+    "total_eur": 423.19,
     "holdings": [
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 55189.0,
-        "value_eur": 212.92
+        "price_eur": 55469.0,
+        "value_eur": 214.0
       },
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.14113405,
         "price_eur": 1.21,
-        "value_eur": 184.46
+        "value_eur": 184.43
       },
       {
         "symbol": "LINK",
         "name": "LINK",
         "amount": 1.10857135,
-        "price_eur": 8.19,
-        "value_eur": 9.08
+        "price_eur": 8.21,
+        "value_eur": 9.1
       },
       {
         "symbol": "EUR",
@@ -117,8 +117,8 @@
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11949062,
-        "price_eur": 65.38,
-        "value_eur": 7.81
+        "price_eur": 65.5,
+        "value_eur": 7.83
       }
     ]
   }
