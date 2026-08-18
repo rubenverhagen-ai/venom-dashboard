@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-18T11:58:19Z",
+  "updated": "2026-08-18T12:38:06Z",
   "portfolio": {
     "total_invested_eur": 1896.06,
     "total_value_eur": NaN,
@@ -7,7 +7,7 @@
     "total_with_cash": NaN,
     "pnl_eur": NaN,
     "pnl_pct": NaN,
-    "fx_eurusd": 1.1579,
+    "fx_eurusd": 1.1575,
     "positions": [
       {
         "symbol": "NVDA",
@@ -83,34 +83,34 @@
   },
   "crypto": {
     "available": true,
-    "total_eur": 424.42,
+    "total_eur": 423.3,
     "holdings": [
       {
         "symbol": "BTC",
         "name": "BTC",
         "amount": 0.00385803,
-        "price_eur": 55544.0,
-        "value_eur": 214.29
+        "price_eur": 55477.0,
+        "value_eur": 214.03
       },
       {
         "symbol": "TRUMP",
         "name": "TRUMP",
         "amount": 152.14113405,
-        "price_eur": 1.22,
-        "value_eur": 185.38
+        "price_eur": 1.21,
+        "value_eur": 184.53
       },
       {
         "symbol": "LINK",
         "name": "LINK",
         "amount": 1.10857135,
-        "price_eur": 8.15,
-        "value_eur": 9.04
+        "price_eur": 8.14,
+        "value_eur": 9.03
       },
       {
         "symbol": "SOL",
         "name": "SOL",
         "amount": 0.11949062,
-        "price_eur": 65.87,
+        "price_eur": 65.86,
         "value_eur": 7.87
       },
       {
